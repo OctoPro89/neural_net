@@ -219,6 +219,19 @@ int main(int argc, char* argv[])
 	// test
 	double test_input[2] = { 0, 1 };
 	test(&network, test_input);
+	
+	for (unsigned int i = 0; i < network.num_layers; ++i)
+	{
+		layer_t* crnt = network->layers[i];
+		for (unsigned int j = 0; j < crnt->num_neurons; ++j)
+		{
+			neuron_t* neuron = crnt->neurons[j];
+			free(neuron->weights);
+		}
+		free(crnt->neurons);
+	}
+	
+	free(network->layers);
 
 	return 0;
 }
